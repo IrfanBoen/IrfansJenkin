@@ -5,7 +5,7 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building the code...'
-                sh 'mvn clean install'  // Example using Maven
+                sh 'mvn clean install'  
             }
         }
         stage('Unit and Integration Tests') {
@@ -17,13 +17,13 @@ pipeline {
         stage('Code Analysis') {
             steps {
                 echo 'Analyzing the code...'
-                sh 'sonar-scanner'  // Example using SonarQube
+                sh 'sonar-scanner' 
             }
         }
         stage('Security Scan') {
             steps {
                 echo 'Performing security scan...'
-                sh 'dependency-check --project pipeline --scan .'  // Example using OWASP Dependency-Check
+                sh 'dependency-check --project pipeline --scan .'  
             }
         }
         stage('Deploy to Staging') {
@@ -51,7 +51,7 @@ pipeline {
             echo 'Pipeline finished.'
         }
         success {
-            mail to: 'developer@example.com',
+            mail to: 'IrfanBoenardi1@gmail.com',
                  subject: "SUCCESS: Pipeline ${currentBuild.fullDisplayName}",
                  body: "Pipeline succeeded: ${currentBuild.fullDisplayName}"
         }
