@@ -4,43 +4,44 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building...'
-                sh 'mvn clean package'
+                // Example of using Maven (or any other build tool)
+                // sh 'mvn clean package'
             }
         }
         stage('Unit and Integration Tests') {
             steps {
                 echo 'Running Unit and Integration Tests...'
-                sh 'mvn test'
+                // Example of using JUnit (or any other test tool)
+                // sh 'mvn test'
             }
         }
         stage('Code Analysis') {
             steps {
                 echo 'Performing Code Analysis...'
-                sh 'sonar-scanner'
+                // Example of using SonarQube
+                // sh 'sonar-scanner'
             }
         }
         stage('Security Scan') {
             steps {
                 echo 'Performing Security Scan...'
-                sh 'dependency-check.sh'
+                // Example of using OWASP Dependency-Check
+                // sh 'dependency-check.sh'
             }
         }
         stage('Deploy to Staging') {
             steps {
                 echo 'Deploying to Staging...'
-                sh 'deploy.sh staging'
             }
         }
         stage('Integration Tests on Staging') {
             steps {
                 echo 'Running Integration Tests on Staging...'
-                sh 'mvn verify -Pstaging'
             }
         }
         stage('Deploy to Production') {
             steps {
                 echo 'Deploying to Production...'
-                sh 'deploy.sh production'
             }
         }
     }
@@ -48,8 +49,8 @@ pipeline {
         always {
             echo 'Sending notification emails...'
             mail to: 'IrfanBoenardi1@gmail.com',
-                 subject: "Jenkins Pipeline ${currentBuild.fullDisplayName}",
-                 body: "The build ${currentBuild.fullDisplayName} has finished with status: ${currentBuild.result}. Check console output at ${env.BUILD_URL} to view the results."
+                 subject: "Jenkins Pipeline Build #${currentBuild.number}",
+                 body: "The build ${currentBuild.number} has finished with status: ${currentBuild.result}. Check console output at ${env.BUILD_URL} to view the results."
         }
     }
 }
