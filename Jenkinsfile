@@ -51,3 +51,12 @@ pipeline {
             }
         }
     }
+    post {
+        always {
+            echo 'Sending notification emails...'
+            mail to: 'IrfanBoenardi1@gmail.com',
+                 subject: "Jenkins Pipeline Project by Irfan Boenardi",
+                 body: "The project is a success!"
+        }
+    }
+}
