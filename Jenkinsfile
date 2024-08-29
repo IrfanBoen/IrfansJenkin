@@ -54,7 +54,7 @@ pipeline {
     post {
         always {
             echo 'Sending notification emails...'
-            mail to: 'developer@example.com',
+            mail to: 'IrfanBoenardi1@gmail.com',
                  subject: "Jenkins Pipeline ${currentBuild.fullDisplayName}",
                  body: "The build ${currentBuild.fullDisplayName} has finished with status: ${currentBuild.result}. Check console output at ${env.BUILD_URL} to view the results."
         }
