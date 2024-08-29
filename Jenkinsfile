@@ -5,7 +5,7 @@ pipeline {
         stage('Copy Log File') {
             steps {
                 echo 'Copying log file...'
-                bat 'copy C:\Users\User\IrfansJenkin\Log.jpg .' 
+                bat 'copy C:\\Users\\User\\IrfansJenkin\\Log.jpg .' 
             }
         }
         stage('Build') {
