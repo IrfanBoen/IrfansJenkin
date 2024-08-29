@@ -1,18 +1,19 @@
 pipeline {
     agent any
+    
     stages {
         stage('Build') {
             steps {
                 echo 'Building...'
                 // Example of MVN
-                // sh 'mvn clean package'
+                // sh 'mvn clean package' (Ensure mvn is correctly installed and in the system PATH)
             }
         }
         stage('Unit and Integration Tests') {
             steps {
                 echo 'Running Unit and Integration Tests...'
                 // Capture the logs if needed
-                sh 'echo "Simulated Unit and Integration Tests logs" > unit_integration_tests.log'
+                bat 'echo "Simulated Unit and Integration Tests logs" > unit_integration_tests.log'  // Using bat for Windows
             }
             post {
                 always {
@@ -25,18 +26,11 @@ pipeline {
                 }
             }
         }
-        stage('Code Analysis') {
-            steps {
-                echo 'Performing Code Analysis...'
-                // Example of SonarQube
-                // sh 'sonar-scanner'
-            }
-        }
         stage('Security Scan') {
             steps {
                 echo 'Performing Security Scan...'
                 // Capture the logs if needed
-                sh 'echo "Simulated Security Scan logs" > security_scan.log'
+                bat 'echo "Simulated Security Scan logs" > security_scan.log'  // Using bat for Windows
             }
             post {
                 always {
@@ -53,21 +47,7 @@ pipeline {
             steps {
                 echo 'Deploying to Staging...'
                 // Example of deploying to staging
-                // sh 'deploy.sh staging'
-            }
-        }
-        stage('Integration Tests on Staging') {
-            steps {
-                echo 'Running Integration Tests on Staging...'
-                // Example of running tests on staging
-                // sh 'mvn verify -Pstaging'
-            }
-        }
-        stage('Deploy to Production') {
-            steps {
-                echo 'Deploying to Production...'
-                // Example of deploying to production
-                // sh 'deploy.sh production'
+                // bat 'deploy.bat staging' (use bat for Windows batch scripts)
             }
         }
     }
