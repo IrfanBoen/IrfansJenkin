@@ -2,33 +2,22 @@ pipeline {
     agent any
     
     stages {
-        stage('Copy Log File') {
-            steps {
-                echo 'Copying log file...'
-                bat 'copy C:\\Users\\User\\IrfansJenkin\\Log.jpg .' 
-            }
-        }
-        stage('Build') {
-            steps {
-                echo 'Building...'
-                // Example of MVN
-                // sh 'mvn clean package'
-            }
-        }
         stage('Unit and Integration Tests') {
             steps {
                 echo 'Running Unit and Integration Tests...'
-                // Example of running unit and integration tests
-                // sh 'mvn test'
+                // Capture the output of the tests to a log file
+                sh '''
+                    mvn test | tee unit-tests.log
+                '''
             }
             post {
                 always {
                     echo 'Archiving and sending email after Unit and Integration Tests...'
-                    archiveArtifacts artifacts: 'Log.jpg', allowEmptyArchive: true
+                    archiveArtifacts artifacts: 'unit-tests.log', allowEmptyArchive: true
                     emailext subject: "Unit and Integration Tests",
-                             body: "Unit and Integration Tests stage for build ${currentBuild.fullDisplayName} is complete with result: ${currentBuild.result}. Check the console output at ${env.BUILD_URL}.",
-                             to: 'IrfanBoenardi1@gmail.com',
-                             attachmentsPattern: 'Log.jpg'
+                             body: "Unit and Integration Tests stage for build ${currentBuild.fullDisplayName} is complete and: ${currentBuild.result}. Check the console output at ${env.BUILD_URL}.",
+                             to: 'IrfanBoenardi123@gmail.com',
+                             attachmentsPattern: 'unit-tests.log'
                 }
             }
         }
@@ -42,17 +31,19 @@ pipeline {
         stage('Security Scan') {
             steps {
                 echo 'Performing Security Scan...'
-                // Example of Dependency Check
-                // sh 'dependency-check.sh'
+                // Capture the output of the security scan to a log file
+                sh '''
+                    dependency-check.sh | tee security-scan.log
+                '''
             }
             post {
                 always {
                     echo 'Archiving and sending email after Security Scan...'
-                    archiveArtifacts artifacts: 'Log.jpg', allowEmptyArchive: true
+                    archiveArtifacts artifacts: 'security-scan.log', allowEmptyArchive: true
                     emailext subject: "Security Scan",
-                             body: "Security Scan stage for build ${currentBuild.fullDisplayName} is complete with result: ${currentBuild.result}. Check the console output at ${env.BUILD_URL}.",
-                             to: 'IrfanBoenardi1@gmail.com',
-                             attachmentsPattern: 'Log.jpg'
+                             body: "Security Scan stage for build ${currentBuild.fullDisplayName} is complete and: ${currentBuild.result}. Check the console output at ${env.BUILD_URL}.",
+                             to: 'IrfanBoenardi123@gmail.com',
+                             attachmentsPattern: 'security-scan.log'
                 }
             }
         }
@@ -78,14 +69,12 @@ pipeline {
             }
         }
     }
-    
     post {
         always {
             echo 'Sending final notification email...'
             emailext subject: "Jenkins Pipeline - Final Status",
                      body: "The build ${currentBuild.fullDisplayName} has completed with status: ${currentBuild.result}. Check the console output at ${env.BUILD_URL}.",
-                     to: 'IrfanBoenardi1@gmail.com',
-                     attachmentsPattern: 'Log.jpg'
+                     to: 'IrfanBoenardi123@gmail.com'
         }
     }
 }
