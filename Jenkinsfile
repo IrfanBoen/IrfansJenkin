@@ -16,7 +16,7 @@ pipeline {
                     archiveArtifacts artifacts: 'unit-tests.log', allowEmptyArchive: true
                     emailext subject: "Unit and Integration Tests",
                              body: "Unit and Integration Tests stage for build ${currentBuild.fullDisplayName} is complete and: ${currentBuild.result}. Check the console output at ${env.BUILD_URL}.",
-                             to: 'IrfanBoenardi123@gmail.com',
+                             to: 'IrfanBoenardi1@gmail.com',
                              attachmentsPattern: 'unit-tests.log'
                 }
             }
@@ -42,7 +42,7 @@ pipeline {
                     archiveArtifacts artifacts: 'security-scan.log', allowEmptyArchive: true
                     emailext subject: "Security Scan",
                              body: "Security Scan stage for build ${currentBuild.fullDisplayName} is complete and: ${currentBuild.result}. Check the console output at ${env.BUILD_URL}.",
-                             to: 'IrfanBoenardi123@gmail.com',
+                             to: 'IrfanBoenardi1@gmail.com',
                              attachmentsPattern: 'security-scan.log'
                 }
             }
@@ -74,7 +74,7 @@ pipeline {
             echo 'Sending final notification email...'
             emailext subject: "Jenkins Pipeline - Final Status",
                      body: "The build ${currentBuild.fullDisplayName} has completed with status: ${currentBuild.result}. Check the console output at ${env.BUILD_URL}.",
-                     to: 'IrfanBoenardi123@gmail.com'
+                     to: 'IrfanBoenardi1@gmail.com'
         }
     }
 }
